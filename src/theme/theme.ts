@@ -4,22 +4,22 @@ import { colors } from '@material-ui/core';
 // Create a theme instance.
 const theme = createTheme({
   palette: {
-    background:{
-      default: colors.common.white,
-      paper: colors.common.white,
+    background: {
+      default: 'rgba(244, 244, 255, 255)',
+      paper: 'rgba(255, 255, 255, 255)',
     },
     primary: {
-      main: "#f44336"
+      main: '#f44336',
     },
     secondary: {
-      main: '#19857b',
+      main: '#3ea6ff',
     },
     error: {
-      main: "#3ea6ff",
+      main: '#b44300',
     },
     text: {
       primary: colors.blueGrey[900],
-      secondary: colors.blueGrey[600]
+      secondary: colors.blueGrey[600],
     },
   },
 });

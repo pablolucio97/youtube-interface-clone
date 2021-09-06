@@ -25,7 +25,10 @@
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", "ts", "tsx"] }],
         "prettier/prettier" : "error",
         "linebreak-style": ["error", "windows"],
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "react/react-in=jsx-scope" : "off",
+        "react/jsx-space-before-closing" : "off",
+        "no-use-before-define": ["error", { "functions": false, "classes": false }]
         
     }
 }
