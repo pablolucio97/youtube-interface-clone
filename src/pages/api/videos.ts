@@ -1,36 +1,43 @@
-import nc from "next-connect";
+import nc from 'next-connect';
 import upload from '../../utils/uploads';
-import connectToDatabase from '../../utils/mongodb'
-import {NextApiRequest, NextApiResponse} from 'next'
+import connectToDatabase from '../../utils/mongodb';
+import { NextApiRequest, NextApiResponse } from 'next';
+import jwt from 'next-auth/jwt';
 
+  const handler = nc()
+    .use(upload.single('file'))
+    .post(async (req: NextApiRequest, res: NextApiResponse) => {
+      const { title, authorId, videoURL, authorName, authorAvatar, views } =
+        req.body;
 
-const handler = nc ()
-  .use(upload.single('file'))
-  .post(async (req: NextApiRequest, res: NextApiResponse) => {
-    const {title, authorId, videoURL, authorName, authorAvatar, views} = req.body
-    const {db} = await connectToDatabase();
-    const collection = db.collection('videos')
+      const secret = process.env.JWT_SECRET;
 
-    await collection.insertOne({
-      title,
-      authorAvatar,
-      authorId,
-      views,
-      videoURL,
-      authorName,
-      //@ts-ignore
-      thumb: req.file.location
-    })
+      const token = await jwt.getToken({ req, secret });
 
+      if (token) {
+        const { db } = await connectToDatabase();
+        const collection = db.collection('videos');
 
-    return res.json({ok: true})
-  })
+        await collection.insertOne({
+          title,
+          authorAvatar,
+          authorId,
+          views,
+          videoURL,
+          authorName,
+          //@ts-ignore
+          thumb: req.file.location,
+        });
 
-    export const config = {
-    api: {
-      bodyParser: false
-    }
-  }
+        return res.json({ ok: true });
+      }
+        return res.status(401).end()
+    });
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 export default handler;
-

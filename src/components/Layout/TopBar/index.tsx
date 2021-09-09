@@ -11,10 +11,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
 import AppsIcon from '@material-ui/icons/Apps';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import Avatar from '@material-ui/core/Avatar';
 import { Button } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Hidden from '@material-ui/core/Hidden';
-import { signIn } from 'next-auth/client';
+import { signIn, useSession, signOut } from 'next-auth/client';
 
 const usestyles = makeStyles((theme) => ({
   root: {
@@ -54,6 +55,7 @@ const usestyles = makeStyles((theme) => ({
 export default function TopBar() {
 
   const classes = usestyles()
+  const [session] = useSession()
 
   return (
     <AppBar className={classes.root} color='default'>
@@ -80,15 +82,29 @@ export default function TopBar() {
           <VideoCallIcon />
           <AppsIcon />
           <NotificationsIcon />
-          <Button
-            variant='outlined'
-            style={{ margin: '8px' }}
-            startIcon={<AccountCircleIcon/>}
-            color='secondary'
-            onClick={() => signIn('google')}
-          >
-            Fazer login
-          </Button>
+          {
+            session ?
+              (
+                <Box display="flex" alignItems="center">
+                <Avatar
+                  onClick={() => signOut()}
+                  alt="User"
+                  src={session?.user?.image}
+                />
+              </Box>
+              ) :
+              (
+                <Button
+                  variant='outlined'
+                  style={{ margin: '8px' }}
+                  startIcon={<AccountCircleIcon />}
+                  color='secondary'
+                  onClick={() => signIn('google')}
+                >
+                  Fazer login
+                </Button>
+              )
+          }
         </Box>
       </Toolbar>
     </AppBar>

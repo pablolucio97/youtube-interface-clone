@@ -49,6 +49,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       videos: JSON.parse(JSON.stringify(data))
-    }
+    },
+    revalidate: 5
   }
 }

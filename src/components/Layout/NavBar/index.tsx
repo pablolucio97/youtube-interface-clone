@@ -23,6 +23,7 @@ import Whatshot from '@material-ui/icons/Whatshot';
 import VideoLibrary from '@material-ui/icons/VideoLibrary';
 import History from '@material-ui/icons/History';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import { signIn, useSession } from 'next-auth/client'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -67,6 +68,9 @@ const secondaryManu = [
 ];
 
 function NavBar() {
+
+  const [session] = useSession()
+
   const classes = useStyles();
   const router = useRouter();
   const [subscriptions, setSubscriptions] = useState([
@@ -80,7 +84,7 @@ function NavBar() {
     { id: 8, name: 'Canal 8' },
   ]);
 
-  const isSelected = (item : any) => router.pathname === item.path;
+  const isSelected = (item: any) => router.pathname === item.path;
 
   const content = (
     <Box height="100%" display="flex" flexDirection="column">
@@ -108,32 +112,25 @@ function NavBar() {
         })}
       </List>
       <Divider />
-      <List>
-        {secondaryManu.map((item) => {
-          const Icon = item.icon;
-          return (
-            <ListItem
-              key={item.id}
-              button
-              classes={{ root: classes.listItem }}
-              selected={isSelected(item)}
-            >
-              <ListItemIcon>
-                <Icon style={{ color: isSelected(item) && '#f44336' }} />
-              </ListItemIcon>
-              <ListItemText
-                classes={{
-                  primary: classes.listItemText,
-                }}
-                primary={item.label}
-              />
-            </ListItem>
-          );
-        })}
-      </List>
-      <Divider />
       <Box>
-      <List
+        {!session ? (
+          <Box mx={4} my={2}>
+            <Typography variant="body2">
+              Faça login para curtur vídeos, comentar e se inscrever.
+            </Typography>
+            <Box mt={2}>
+              <Button
+                variant="outlined"
+                color="secondary"
+                startIcon={<AccountCircle />}
+                onClick={() => signIn('google')}
+              >
+                Fazer login
+              </Button>
+            </Box>
+          </Box>
+        ) : (
+          <List
             subheader={
               <ListSubheader component="div" id="nested-list-subheader">
                 INSCRIÇÕES
@@ -159,6 +156,7 @@ function NavBar() {
               </ListItem>
             ))}
           </List>
+        )}
       </Box>
     </Box>
   );
