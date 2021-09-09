@@ -46,7 +46,7 @@ function VideoCard({ title, thumb, _id, views, authorAvatar, authorName, updated
         onClick={() =>
           router.push({
             pathname: '/video/[id]',
-            query: { _id },
+            query: { id: _id },
           })
         }
       />

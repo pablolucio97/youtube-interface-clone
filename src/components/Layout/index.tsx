@@ -6,7 +6,7 @@ import NavBar from './NavBar'
 
 type ChildrenProps = {
   children: React.ReactNode;
-  title: string;
+  title?: string;
 }
 
 const useStyles = makeStyles((theme) => ({
