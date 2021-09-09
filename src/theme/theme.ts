@@ -2,7 +2,7 @@ import { createTheme } from '@material-ui/core/styles';
 import { colors } from '@material-ui/core';
 
 // Create a theme instance.
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     background: {
       default: 'rgba(244, 244, 255, 255)',

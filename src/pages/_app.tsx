@@ -17,6 +17,7 @@ export default function MyApp(props : any) {
     }
   }, []);
 
+
   return (
     <React.Fragment>
       <Head>
@@ -33,10 +34,12 @@ export default function MyApp(props : any) {
           stopDelayMs={200}
           height={3}
           showOnShallow={true}
-        />
+          />
         <Component {...pageProps} />
       </ThemeProvider>
       </Provider>
     </React.Fragment>
   );
 }
+
+

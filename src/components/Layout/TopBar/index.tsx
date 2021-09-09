@@ -17,6 +17,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Hidden from '@material-ui/core/Hidden';
 import { signIn, useSession, signOut } from 'next-auth/client';
 
+
 const usestyles = makeStyles((theme) => ({
   root: {
     boxShadow: 'none',
@@ -79,7 +80,7 @@ export default function TopBar() {
           </Box>
         </Hidden>
         <Box className={classes.rightBox}>
-          <VideoCallIcon />
+          <VideoCallIcon/>
           <AppsIcon />
           <NotificationsIcon />
           {
