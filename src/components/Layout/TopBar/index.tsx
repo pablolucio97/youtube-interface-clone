@@ -14,6 +14,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { Button } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Hidden from '@material-ui/core/Hidden';
+import { signIn } from 'next-auth/client';
 
 const usestyles = makeStyles((theme) => ({
   root: {
@@ -84,6 +85,7 @@ export default function TopBar() {
             style={{ margin: '8px' }}
             startIcon={<AccountCircleIcon/>}
             color='secondary'
+            onClick={() => signIn('google')}
           >
             Fazer login
           </Button>

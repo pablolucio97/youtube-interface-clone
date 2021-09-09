@@ -51,9 +51,8 @@ function VideoCard({ title, thumb, _id, views, authorAvatar, authorName, updated
         }
       />
       <Box display="flex" mt="1">
-        <Box mr={2}>
+        <Box mr={2} >
           <Avatar alt={authorName} src={authorAvatar}>
-            SS
           </Avatar>
         </Box>
         <Box>
